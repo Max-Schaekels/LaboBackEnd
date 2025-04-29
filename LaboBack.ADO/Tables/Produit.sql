@@ -1,0 +1,13 @@
+﻿CREATE TABLE [dbo].[Produit]
+(
+	[Id] INT IDENTITY,
+	[Nom] NVARCHAR(150) NOT NULL,
+	[Description] NVARCHAR(1000) NOT NULL,
+	[Categorie] NVARCHAR(100) NOT NULL,
+	[Quantite] INT NOT NULL DEFAULT 0,
+	[PrixHTVA] DEC(18,2) NOT NULL,
+	[PrixTVAC] DEC(18,2) NOT NULL,	
+
+	CONSTRAINT [PK_Produit] PRIMARY KEY ([Id])
+	
+)
