@@ -16,6 +16,7 @@ namespace LaboBack.BLL.Mappers
             {
                 Id = u.Id,
                 Nom = u.Nom,
+                Prenom = u.Prenom,
                 Email = u.Email,
                 Role = u.Role
                 // On ne retourne jamais le mot de passe dans la couche BLL
@@ -28,6 +29,7 @@ namespace LaboBack.BLL.Mappers
             {
                 Id = u.Id,
                 Nom = u.Nom,
+                Prenom = u.Prenom,
                 Email = u.Email,
                 Mdp = u.Mdp,
                 Role = u.Role

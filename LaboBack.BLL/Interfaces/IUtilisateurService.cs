@@ -11,5 +11,10 @@ namespace LaboBack.BLL.Interfaces
     {
         int Register(Utilisateur utilisateur);
         Utilisateur? Login(string email, string mdp);
+        IEnumerable<Utilisateur> GetAll();
+        Utilisateur? GetById(int id);
+        Utilisateur? GetByEmail(string email);
+        public void Update(Utilisateur utilisateur);
+      
     }
 }

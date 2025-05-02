@@ -50,7 +50,7 @@ namespace LaboBack.DAL.Repositories
 
         public int Create(Utilisateur utilisateur)
         {
-            Command command = new Command("INSERT INTO UTILISATEUR (Nom,Email, MdpHash,Role) VALUES (@Nom, @Email, @Mdp,@Role); SELECT SCOPE_IDENTITY();");
+            Command command = new Command("INSERT INTO UTILISATEUR (Nom,Prenom,Email, MdpHash,Role) VALUES (@Nom,@Prenom, @Email, @Mdp,@Role); SELECT SCOPE_IDENTITY();");
             var parametres = UtilisateurMapper.ToDB(utilisateur); // utilisation du mappeur pour récupérer dictionnaire des paramètre 
 
             foreach (var param in parametres)
@@ -60,6 +60,24 @@ namespace LaboBack.DAL.Repositories
             var result = _connection.ExecuteScalar(command);
             int id = Convert.ToInt32(result);
             return id;
+        }
+
+        public void Update(Utilisateur utilisateur)
+        {
+            Command command = new Command("UPDATE Utilisateur SET Nom = @Nom," +
+                                                            " Prenom = @Prenom," +
+                                                            " MdpHash = @Mdp," +
+                                                            " Role = @Role" +
+                                                            " WHERE Id = @id");
+            var parametres = UtilisateurMapper.UpdateToDB(utilisateur);  
+
+            foreach (var param in parametres)
+            {
+                command.AddParameter(param.Key, param.Value);
+            }
+            command.AddParameter("@id", utilisateur.Id);
+
+            _connection.ExecuteNonQuery(command);
         }
     }
 }

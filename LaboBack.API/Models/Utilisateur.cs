@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace LaboBack.BLL.Models
+﻿namespace LaboBack.API.Models
 {
     public class Utilisateur
     {
@@ -12,7 +6,6 @@ namespace LaboBack.BLL.Models
         public string Nom { get; set; }
         public string Prenom { get; set; }
         public string Email { get; set; }
-        public string Mdp { get; set; }
         public string? Role { get; set; }
     }
 }
