@@ -69,12 +69,20 @@ namespace LaboBack.DAL.Repositories
 
         public IEnumerable<Produit> GetByCategorie(string categorie)
         {
-            throw new NotImplementedException();
+            Command command = new Command("SELECT * FROM Produit WHERE Categorie = @categorie ORDER BY Categorie");
+
+            command.AddParameter("@categorie", categorie);
+
+            return _connection.ExecuteReader(command, ProduitMapper.ToDAL);
         }
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            Command command = new Command("DELETE FROM Produit WHERE Id = @id");
+
+            command.AddParameter("@id", id);
+
+            _connection.ExecuteNonQuery(command);
         }
     }
 }

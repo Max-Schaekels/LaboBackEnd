@@ -54,13 +54,18 @@ namespace LaboBack.BLL.Services
 
         public IEnumerable<Produit> GetByCategorie(string categorie)
         {
-            throw new NotImplementedException();
+            return _repository.GetByCategorie(categorie).Select(p => p.DalToBll());
         }
 
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            var existing = _repository.GetById(id);
+            if (existing == null)
+            {
+                throw new ArgumentException("Produit introuvable.");
+            }
+            _repository.Delete(id);
         }
     }
 }

@@ -19,6 +19,9 @@ builder.Services.AddScoped<IUtilisateurRepository, UtilisateurRepository>();
 builder.Services.AddScoped<IProduitService, ProduitService>();
 builder.Services.AddScoped<IProduitRepository, ProduitRepository >();
 
+builder.Services.AddScoped<ICommandeService, CommandeService>();
+builder.Services.AddScoped<ICommandeRepository, CommandeRepository>();
+
 builder.Services.AddScoped<Connection>(sp =>
     new Connection(builder.Configuration.GetConnectionString("Default"))
 );

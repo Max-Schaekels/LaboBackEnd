@@ -42,6 +42,14 @@ namespace LaboBack.API.Controllers
             return Ok(result.BllToApi());
         }
 
+        
+        [HttpGet("categorie/{categorie}")]
+        public IActionResult GetByCategorie(string categorie)
+        {
+            var result = _produitService.GetByCategorie(categorie).Select(p => p.BllToApi());
+            return Ok(result);
+        }
+
         [HttpPost(nameof(Create))]
         public IActionResult Create(ProduitFormDTO form)
         {
@@ -68,7 +76,10 @@ namespace LaboBack.API.Controllers
             try
             {
                 if (!ModelState.IsValid)
+                {
+
                     return BadRequest(ModelState);
+                }
 
                 var produit = form.ApiToBll();
                 produit.Id = id;
@@ -82,6 +93,19 @@ namespace LaboBack.API.Controllers
             }
         }
 
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            try
+            {
 
+                _produitService.Delete(id);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }
