@@ -10,7 +10,7 @@ namespace LaboBack.API.Mappers
         {
             return new bll.Commande
             {
-                UtilisateurId = form.UtilisateurId,
+                
                 DateCommande = DateTime.Now, 
                 StatutCommande = "En cours"  
             };

@@ -13,10 +13,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Tools\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\LaboBack.BLL\LaboBack.BLL.csproj" />
   </ItemGroup>
 

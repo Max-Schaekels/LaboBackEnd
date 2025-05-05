@@ -5,6 +5,7 @@ using LaboBack.API.Mappers;
 using LaboBack.API.Models;
 using LaboBack.API.Models.DTO;
 using LaboBack.API.Models.DTO.Utilisateur;
+using LaboBack.API.Tools;
 
 namespace LaboBack.API.Controllers
 {
@@ -13,10 +14,12 @@ namespace LaboBack.API.Controllers
     public class AuthController : ControllerBase
     {
         private readonly IUtilisateurService _utilisateurService;
+        private readonly TokenManager _tokenManager;
 
-        public AuthController(IUtilisateurService utilisateurService)
+        public AuthController(IUtilisateurService utilisateurService, TokenManager tokenManager)
         {
             _utilisateurService = utilisateurService;
+            _tokenManager = tokenManager;
         }
 
         [HttpGet]
@@ -64,7 +67,9 @@ namespace LaboBack.API.Controllers
                 }
 
                 var userApi = userBll.BllToApi();
-                return Ok(userApi);
+
+                string token = _tokenManager.GenerateJwt(userApi);
+                return Ok(token);
             }
             catch (Exception ex)
             {

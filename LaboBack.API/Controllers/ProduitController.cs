@@ -6,10 +6,12 @@ using LaboBack.API.Models;
 using LaboBack.API.Models.DTO;
 using LaboBack.API.Models.DTO.Produit;
 using LaboBack.BLL.Services;
+using Microsoft.AspNetCore.Authorization;
 
 
 namespace LaboBack.API.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ProduitController : ControllerBase

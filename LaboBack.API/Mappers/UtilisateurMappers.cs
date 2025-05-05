@@ -15,7 +15,7 @@ namespace LaboBack.API.Mappers
                 Prenom = form.Prenom,
                 Email = form.Email,
                 Mdp = form.Mdp,
-                Role = form.Role
+                Role = form.Role?.ToLowerInvariant()
             };
         }
 
@@ -38,7 +38,7 @@ namespace LaboBack.API.Mappers
                 Nom = form.Nom,
                 Prenom = form.Prenom,
                 Mdp = form.Mdp,
-                Role = form.Role
+                Role = form.Role?.ToLowerInvariant()
             };
         }
     }

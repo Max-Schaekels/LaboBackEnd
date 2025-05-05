@@ -6,9 +6,12 @@ using LaboBack.API.Models;
 using LaboBack.API.Models.DTO;
 using LaboBack.API.Models.DTO.Commande;
 using LaboBack.BLL.Services;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace LaboBack.API.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class CommandeController : ControllerBase
@@ -69,7 +72,8 @@ namespace LaboBack.API.Controllers
                     return BadRequest(ModelState);
                 }
 
-                var commande = form.ApiToBll();                      
+                var commande = form.ApiToBll();
+                commande.UtilisateurId = int.Parse(User.FindFirst(ClaimTypes.Sid).Value);
                 var lignes = form.Lignes.ToBll().ToList();           
 
                 int id = _commandeService.Create(commande, lignes);  
