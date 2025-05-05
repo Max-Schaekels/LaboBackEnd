@@ -10,6 +10,7 @@ using LaboBack.BLL.Models;
 using LaboBack.DAL.Models;
 using Commande = LaboBack.BLL.Models.Commande;
 using Commande_Produit = LaboBack.BLL.Models.Commande_Produit;
+using CommandeDetail = LaboBack.BLL.Models.CommandeDetail;
 
 namespace LaboBack.BLL.Services
 {
@@ -47,6 +48,11 @@ namespace LaboBack.BLL.Services
         public void UpdateStatut(int commandeId, string nouveauStatut)
         {
             _repository.UpdateStatut(commandeId, nouveauStatut);
+        }
+
+        public IEnumerable<CommandeDetail> GetCommandeDetails(int commandeId)
+        {
+            return _repository.GetCommandeDetails(commandeId).Select(c => c.DalToBll());
         }
     }
 }

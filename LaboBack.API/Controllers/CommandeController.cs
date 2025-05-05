@@ -88,5 +88,18 @@ namespace LaboBack.API.Controllers
             _commandeService.UpdateStatut(commandeId, nouveauStatut.StatutCommande);
             return Ok();
         }
+
+        [HttpGet("{commandeId}/details")]
+        public IActionResult GetCommandeDetails(int commandeId)
+        {
+            var result = _commandeService.GetCommandeDetails(commandeId);
+
+            if (!result.Any())
+            {
+                return NotFound();
+            }
+
+            return Ok(result.Select(c => c.BllToApi()));
+        }
     }
 }

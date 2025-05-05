@@ -55,5 +55,19 @@ namespace LaboBack.API.Mappers
                 QuantiteCommandee = ligne.QuantiteCommandee
             };
         }
+
+        public static api.CommandeDetail BllToApi(this bll.CommandeDetail detail)
+        {
+            return new api.CommandeDetail
+            {
+                CommandeId = detail.CommandeId,
+                ProduitId = detail.ProduitId,
+                Nom = detail.Nom,
+                Categorie = detail.Categorie,
+                PrixHTVA = detail.PrixHTVA,
+                PrixTVAC = detail.PrixTVAC,
+                QuantiteCommandee = detail.QuantiteCommandee
+            };
+        }
     }
 }

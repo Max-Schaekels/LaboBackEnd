@@ -89,21 +89,10 @@ namespace LaboBack.BLL.Services
 
         public void Update(Utilisateur utilisateur)
         {
-            // Récupérer le hash actuellement en base
-            string? storedHash = _repository.GetPassword(utilisateur.Email);
+            // Rehash systématique du mot de passe fourni
+            utilisateur.Mdp = BCrypt.Net.BCrypt.HashPassword(utilisateur.Mdp);
 
-            if (string.IsNullOrEmpty(storedHash))
-            {
-                throw new ArgumentException("Mot de passe introuvable.");
-            }
-
-            // Si le mot de passe a changé, on le re-hash
-            if (!BCrypt.Net.BCrypt.Verify(utilisateur.Mdp, storedHash))
-            {
-                utilisateur.Mdp = BCrypt.Net.BCrypt.HashPassword(utilisateur.Mdp);
-            }
-
-            // Récupérer l'ID via l'email
+            // Récupérer l'utilisateur existant pour son ID
             var existingUser = _repository.GetByEmail(utilisateur.Email);
             if (existingUser == null)
             {
@@ -112,7 +101,7 @@ namespace LaboBack.BLL.Services
 
             utilisateur.Id = existingUser.Id;
 
-            // Mise à jour
+            // Mise à jour en base
             _repository.Update(utilisateur.BllToDal());
         }
     }

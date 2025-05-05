@@ -14,5 +14,6 @@ namespace LaboBack.DAL.Interfaces
         IEnumerable<Commande> GetByUtilisateurId(int utilisateurId);
         IEnumerable<Commande_Produit> GetLignesCommande(int commandeId);
         void UpdateStatut(int commandeId, string nouveauStatut);
+        IEnumerable<CommandeDetail> GetCommandeDetails(int commandeId);
     }
 }

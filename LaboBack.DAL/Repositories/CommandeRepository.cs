@@ -79,5 +79,12 @@ namespace LaboBack.DAL.Repositories
             _connection.ExecuteNonQuery(command);
 
         }
+
+        public IEnumerable<CommandeDetail> GetCommandeDetails(int commandeId)
+        {
+            Command command = new Command("SELECT cp.CommandeId, cp.ProduitId, p.Nom, p.Categorie, p.PrixHTVA, p.PrixTVAC, cp.QuantiteCommandee FROM MM_Commande_Produit cp JOIN Produit p ON cp.ProduitId = p.Id Where cp.CommandeId = @CommandeId");
+            command.AddParameter("@CommandeId", commandeId);
+            return _connection.ExecuteReader(command, CommandeDetailMapper.ToDAL);
+        }
     }
 }
