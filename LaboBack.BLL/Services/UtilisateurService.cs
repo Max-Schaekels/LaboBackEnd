@@ -20,6 +20,7 @@ namespace LaboBack.BLL.Services
             _repository = repository;
         }
 
+        // Connexion
         public Utilisateur Login(string email, string mdp)
         {
             try
@@ -56,8 +57,10 @@ namespace LaboBack.BLL.Services
 
         }
 
+        //Enregistrement
         public int Register(Utilisateur utilisateur)
         {
+            //Hash du mdp
             string hashMdp = BCrypt.Net.BCrypt.HashPassword(utilisateur.Mdp);
 
             utilisateur.Mdp = hashMdp;
@@ -66,6 +69,7 @@ namespace LaboBack.BLL.Services
             return id;
         }
 
+        //Récupération de tous les utilisateurs
         public IEnumerable<Utilisateur> GetAll()
         {
             return _repository
@@ -73,6 +77,7 @@ namespace LaboBack.BLL.Services
                 .Select(u => u.DalToBll());
         }
 
+        //Récupérer un utilisateur par son id
         public Utilisateur? GetById(int id)
         {
             var utilisateurDal = _repository.GetById(id);
@@ -80,6 +85,7 @@ namespace LaboBack.BLL.Services
             return utilisateurDal?.DalToBll();
         }
 
+        //Récupérer un utilisateur par son email
         public Utilisateur? GetByEmail(string email)
         {
             var utilisateurDal = _repository.GetByEmail(email);
@@ -87,6 +93,7 @@ namespace LaboBack.BLL.Services
             return utilisateurDal?.DalToBll();
         }
 
+        //Mise à jour d'un utilisateur
         public void Update(Utilisateur utilisateur)
         {
             // Rehash systématique du mot de passe fourni

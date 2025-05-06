@@ -23,7 +23,7 @@ namespace LaboBack.API.Controllers
             _produitService = produitService;
         }
 
-
+        // Récupération de l'ensemble des produits
         [HttpGet]
         public IActionResult GetAll()
         {
@@ -31,6 +31,7 @@ namespace LaboBack.API.Controllers
             return Ok(result);
         }
 
+        // Récupération d'un produit par son id (détails)
         [HttpGet("{id}")]
         public IActionResult GetByID(int id)
         {
@@ -44,7 +45,7 @@ namespace LaboBack.API.Controllers
             return Ok(result.BllToApi());
         }
 
-        
+        // Tri des produits par catégories
         [HttpGet("categorie/{categorie}")]
         public IActionResult GetByCategorie(string categorie)
         {
@@ -52,6 +53,7 @@ namespace LaboBack.API.Controllers
             return Ok(result);
         }
 
+        //Création d'un produit
         [HttpPost(nameof(Create))]
         public IActionResult Create(ProduitFormDTO form)
         {
@@ -72,6 +74,7 @@ namespace LaboBack.API.Controllers
             }
         }
 
+        //Update d'un produit sur base de son id
         [HttpPut("{id}")]
         public IActionResult Update(int id, UpdateProduitFormDTO form)
         {
@@ -95,6 +98,7 @@ namespace LaboBack.API.Controllers
             }
         }
 
+        //Suppression d'un produit
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {

@@ -19,12 +19,14 @@ namespace LaboBack.DAL.Repositories
             _connection = connection;
         }
 
+        //Récupération ensemble utilisateurs
         public IEnumerable<Utilisateur> GetAll()
         {
             Command command = new Command("SELECT * FROM Utilisateur");
             return _connection.ExecuteReader(command, UtilisateurMapper.ToDAL);
         }
 
+        //Récupération utilisateur par l'id
         public Utilisateur? GetById(int id)
         {
             Command command = new Command("SELECT * FROM Utilisateur Where Utilisateur.Id = @Id");
@@ -32,7 +34,7 @@ namespace LaboBack.DAL.Repositories
             return _connection.ExecuteReader(command, UtilisateurMapper.ToDAL).FirstOrDefault();
         }
 
-
+        //Récupération utilisateur par l'email
         public Utilisateur? GetByEmail(string email)
         {
             Command command = new Command("SELECT * FROM Utilisateur Where Utilisateur.Email = @Email");
@@ -40,6 +42,7 @@ namespace LaboBack.DAL.Repositories
             return _connection.ExecuteReader(command, UtilisateurMapper.ToDAL).FirstOrDefault();
         }
 
+        //Récupération du mdp
         public string? GetPassword(string email)
         {
             Command command = new Command("SELECT MdpHash FROM Utilisateur Where Utilisateur.Email = @Email");
@@ -48,11 +51,13 @@ namespace LaboBack.DAL.Repositories
             return result == null || result == DBNull.Value ? null : result.ToString();
         }
 
+        //Création d'un utilisateur
         public int Create(Utilisateur utilisateur)
         {
             Command command = new Command("INSERT INTO UTILISATEUR (Nom,Prenom,Email, MdpHash,Role) VALUES (@Nom,@Prenom, @Email, @Mdp,@Role); SELECT SCOPE_IDENTITY();");
             var parametres = UtilisateurMapper.ToDB(utilisateur); // utilisation du mappeur pour récupérer dictionnaire des paramètre 
 
+            //Ajout des paramètres
             foreach (var param in parametres)
             {
                 command.AddParameter(param.Key, param.Value);
@@ -62,6 +67,7 @@ namespace LaboBack.DAL.Repositories
             return id;
         }
 
+        //Mise à jour d'un utilisateur
         public void Update(Utilisateur utilisateur)
         {
             Command command = new Command("UPDATE Utilisateur SET Nom = @Nom," +

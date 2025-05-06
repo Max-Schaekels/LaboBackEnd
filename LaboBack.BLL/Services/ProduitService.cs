@@ -21,12 +21,15 @@ namespace LaboBack.BLL.Services
         {
             _repository = repository;
         }
+
+        //Création d'un produit
         public int Create(Produit produit)
         {
             int id = _repository.Create(produit.BllToDal());
             return id;
         }
 
+        // Mise à jour d'un produit
         public void Update(Produit produit)
         {
             var existing = _repository.GetById(produit.Id);
@@ -37,6 +40,7 @@ namespace LaboBack.BLL.Services
             _repository.Update(produit.BllToDal());
         }
 
+        //Récupération de l'ensemble des produits
         public IEnumerable<Produit> GetAll()
         {
             return _repository
@@ -44,6 +48,7 @@ namespace LaboBack.BLL.Services
                             .Select(p => p.DalToBll());
         }
 
+        //Récupération d'un produit
         public Produit? GetById(int id)
         {
             var produitDal = _repository.GetById(id);
@@ -51,13 +56,13 @@ namespace LaboBack.BLL.Services
         }
 
 
-
+        //Tri produit par catégorie
         public IEnumerable<Produit> GetByCategorie(string categorie)
         {
             return _repository.GetByCategorie(categorie).Select(p => p.DalToBll());
         }
 
-
+        //Suppression produit
         public void Delete(int id)
         {
             var existing = _repository.GetById(id);

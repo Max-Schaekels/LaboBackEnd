@@ -18,11 +18,13 @@ namespace LaboBack.API.Controllers
     {
         private readonly ICommandeService _commandeService;
 
+
         public CommandeController(ICommandeService commandeService)
         {
             _commandeService = commandeService;
         }
 
+        // Récupération de la commande par l'id
         [HttpGet("{id}")]
         public IActionResult GetByID(int id)
         {
@@ -36,6 +38,7 @@ namespace LaboBack.API.Controllers
             return Ok(result.BllToApi());
         }
 
+        // Récupération de la commande avec l'id de l'utilisateur
         [HttpGet("utilisateur/{utilisateurId}")]
         public IActionResult GetByUtilisateurId(int utilisateurId)
         {
@@ -49,6 +52,7 @@ namespace LaboBack.API.Controllers
             return Ok(result.Select(c => c.BllToApi()));
         }
 
+        // Récupération des lignes de la commande (quantité comandée)
         [HttpGet("commande/{commandeId}")]
         public IActionResult GetLignesCommande(int commandeId)
         {
@@ -62,6 +66,7 @@ namespace LaboBack.API.Controllers
             return Ok(result.Select(c => c.BllToApi()));
         }
 
+        //Création d'une commande
         [HttpPost(nameof(Create))]
         public IActionResult Create([FromBody] CommandeFormDTO form)
         {
@@ -86,6 +91,7 @@ namespace LaboBack.API.Controllers
             }
         }
 
+        //Modification du status de la commande sur base de son id
         [HttpPatch("{commandeId}")]
         public IActionResult UpdateStatut(int commandeId, [FromBody] StatutCommandeFormDTO nouveauStatut)
         {
@@ -93,6 +99,7 @@ namespace LaboBack.API.Controllers
             return Ok();
         }
 
+        //Détails de la commande (nom du produit, catégorie, quantité commandé et les prix)
         [HttpGet("{commandeId}/details")]
         public IActionResult GetCommandeDetails(int commandeId)
         {

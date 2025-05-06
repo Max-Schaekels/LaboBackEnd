@@ -22,6 +22,8 @@ namespace LaboBack.BLL.Services
         {
             _repository = repository;
         }
+
+        //Creation d'une commande
         public int Create(Commande commande, List<Commande_Produit> lignes)
         {
             var lignesDal = lignes.Select(l => l.CPBllToDal()).ToList();
@@ -29,27 +31,32 @@ namespace LaboBack.BLL.Services
             return id;
         }
 
+        //Récupération par l'id
         public Commande? GetById(int id)
         {
             var comDal = _repository.GetById(id);
             return comDal?.DalToBll();
         }
 
+        //Récupération des commandes d'un utilisateur
         public IEnumerable<Commande> GetByUtilisateurId(int utilisateurId)
         {
             return _repository.GetByUtilisateurId(utilisateurId).Select(c => c.DalToBll());
         }
 
+        //Récupération des lignes d'une commande (quantité commandée,id produit)
         public IEnumerable<Commande_Produit> GetLignesCommande(int commandeId)
         {
             return _repository.GetLignesCommande(commandeId).Select(c => c.CPDalToBll());
         }
 
+        //Mise à jour du status
         public void UpdateStatut(int commandeId, string nouveauStatut)
         {
             _repository.UpdateStatut(commandeId, nouveauStatut);
         }
 
+        //Detail d'une commande (nom, catégorie, prix et quantite commandee)
         public IEnumerable<CommandeDetail> GetCommandeDetails(int commandeId)
         {
             return _repository.GetCommandeDetails(commandeId).Select(c => c.DalToBll());

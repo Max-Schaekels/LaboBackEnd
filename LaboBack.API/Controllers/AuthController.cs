@@ -16,12 +16,14 @@ namespace LaboBack.API.Controllers
         private readonly IUtilisateurService _utilisateurService;
         private readonly TokenManager _tokenManager;
 
+        //Service et token manager
         public AuthController(IUtilisateurService utilisateurService, TokenManager tokenManager)
         {
             _utilisateurService = utilisateurService;
             _tokenManager = tokenManager;
         }
 
+        // liste de tous les utilisateurs
         [HttpGet]
         public IActionResult GetAll()
         {
@@ -29,6 +31,7 @@ namespace LaboBack.API.Controllers
             return Ok(result);
         }
 
+        //Enregistrement
         [HttpPost(nameof(Register))]
         public IActionResult Register(RegisterFormDTO form)
         {
@@ -49,6 +52,7 @@ namespace LaboBack.API.Controllers
             }
         }
 
+        //Connexion
         [HttpPost(nameof(Login))]
         public IActionResult Login(LoginFormDTO form)
         {
@@ -77,6 +81,7 @@ namespace LaboBack.API.Controllers
             }
         }
 
+        // Update de l'utilisateur via l'email
         [HttpPut("{email}")]
         public IActionResult Update(string email, UpdateFormDTO form)
         {
