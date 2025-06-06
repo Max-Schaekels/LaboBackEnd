@@ -93,6 +93,7 @@ namespace LaboBack.API.Controllers
 
         //Modification du status de la commande sur base de son id
         [HttpPatch("{commandeId}")]
+        [Authorize(Roles = "admin")]
         public IActionResult UpdateStatut(int commandeId, [FromBody] StatutCommandeFormDTO nouveauStatut)
         {
             _commandeService.UpdateStatut(commandeId, nouveauStatut.StatutCommande);

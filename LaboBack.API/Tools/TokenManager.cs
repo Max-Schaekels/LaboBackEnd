@@ -31,7 +31,7 @@ namespace LaboBack.API.Tools
             {
                 new Claim(ClaimTypes.Sid, user.Id.ToString()),
                 new Claim(ClaimTypes.GivenName, user.Nom ?? "NomInconnu"),
-                new Claim(ClaimTypes.Role, user.Role),
+                new Claim(ClaimTypes.Role, user.Role.ToLowerInvariant()),
                 new Claim(ClaimTypes.Expiration, now.AddHours(expirationDate).ToString(), ClaimValueTypes.DateTime)
             };
 

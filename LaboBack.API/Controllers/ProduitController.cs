@@ -55,6 +55,7 @@ namespace LaboBack.API.Controllers
 
         //Création d'un produit
         [HttpPost(nameof(Create))]
+        [Authorize(Roles = "admin")]
         public IActionResult Create(ProduitFormDTO form)
         {
             try
@@ -76,6 +77,7 @@ namespace LaboBack.API.Controllers
 
         //Update d'un produit sur base de son id
         [HttpPut("{id}")]
+        [Authorize(Roles = "admin")]
         public IActionResult Update(int id, UpdateProduitFormDTO form)
         {
             try
@@ -100,6 +102,7 @@ namespace LaboBack.API.Controllers
 
         //Suppression d'un produit
         [HttpDelete("{id}")]
+        [Authorize(Roles = "admin")]
         public IActionResult Delete(int id)
         {
             try
