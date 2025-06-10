@@ -73,7 +73,7 @@ namespace LaboBack.API.Controllers
                 var userApi = userBll.BllToApi();
 
                 string token = _tokenManager.GenerateJwt(userApi);
-                return Ok(token);
+                return new JsonResult(new { user = userApi, token = token });
             }
             catch (Exception ex)
             {
