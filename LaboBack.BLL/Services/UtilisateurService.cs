@@ -93,23 +93,34 @@ namespace LaboBack.BLL.Services
             return utilisateurDal?.DalToBll();
         }
 
-        //Mise à jour d'un utilisateur
-        public void Update(Utilisateur utilisateur)
+        public bool Update(Utilisateur utilisateur)
         {
-            // Rehash systématique du mot de passe fourni
-            utilisateur.Mdp = BCrypt.Net.BCrypt.HashPassword(utilisateur.Mdp);
-
-            // Récupérer l'utilisateur existant pour son ID
-            var existingUser = _repository.GetByEmail(utilisateur.Email);
+            var existingUser = _repository.GetById(utilisateur.Id);
             if (existingUser == null)
             {
                 throw new ArgumentException("Utilisateur introuvable.");
             }
 
-            utilisateur.Id = existingUser.Id;
+            utilisateur.Email = existingUser.Email;
 
-            // Mise à jour en base
-            _repository.Update(utilisateur.BllToDal());
+            // Si un nouveau mot de passe est fourni, on le rehash
+            if (!string.IsNullOrWhiteSpace(utilisateur.Mdp))
+            {
+                utilisateur.Mdp = BCrypt.Net.BCrypt.HashPassword(utilisateur.Mdp);
+            }
+            else
+            {
+                // Sinon, on conserve le mot de passe actuel
+                utilisateur.Mdp = existingUser.Mdp;
+            }
+            
+            if (string.IsNullOrWhiteSpace(utilisateur.Role))
+            {
+                utilisateur.Role = existingUser.Role;
+            }
+
+            // 🔄 Mettre à jour en base
+            return _repository.Update(utilisateur.BllToDal());
         }
     }
 }

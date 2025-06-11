@@ -6,6 +6,7 @@ using LaboBack.API.Models;
 using LaboBack.API.Models.DTO;
 using LaboBack.API.Models.DTO.Utilisateur;
 using LaboBack.API.Tools;
+using Microsoft.AspNetCore.Authorization;
 
 namespace LaboBack.API.Controllers
 {
@@ -25,6 +26,7 @@ namespace LaboBack.API.Controllers
 
         // liste de tous les utilisateurs
         [HttpGet]
+        [Authorize(Roles = "admin")]
         public IActionResult GetAll()
         {
             var result = _utilisateurService.GetAll().Select(u => u.BllToApi());
@@ -33,6 +35,7 @@ namespace LaboBack.API.Controllers
 
         //Enregistrement
         [HttpPost(nameof(Register))]
+        [AllowAnonymous]
         public IActionResult Register(RegisterFormDTO form)
         {
             try
@@ -54,6 +57,7 @@ namespace LaboBack.API.Controllers
 
         //Connexion
         [HttpPost(nameof(Login))]
+        [AllowAnonymous]
         public IActionResult Login(LoginFormDTO form)
         {
             try
@@ -81,27 +85,6 @@ namespace LaboBack.API.Controllers
             }
         }
 
-        // Update de l'utilisateur via l'email
-        [HttpPut("{email}")]
-        public IActionResult Update(string email, UpdateFormDTO form)
-        {
-            try
-            {
-                if (!ModelState.IsValid)
-                {
-                    return BadRequest(ModelState);
-                }
-                var utilisateur = form.ApiToBll();
-                utilisateur.Email = email;
-                _utilisateurService.Update(utilisateur);
 
-
-                return Ok();
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
     }
 }

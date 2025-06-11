@@ -14,6 +14,6 @@ namespace LaboBack.DAL.Interfaces
         Utilisateur? GetByEmail(string email);
         string? GetPassword(string email);
         int Create(Utilisateur utilisateur);
-        void Update(Utilisateur utilisateur);
+        bool Update(Utilisateur utilisateur);
     }
 }

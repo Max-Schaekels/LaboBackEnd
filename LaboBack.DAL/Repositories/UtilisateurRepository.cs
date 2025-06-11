@@ -68,7 +68,7 @@ namespace LaboBack.DAL.Repositories
         }
 
         //Mise à jour d'un utilisateur
-        public void Update(Utilisateur utilisateur)
+        public bool Update(Utilisateur utilisateur)
         {
             Command command = new Command("UPDATE Utilisateur SET Nom = @Nom," +
                                                             " Prenom = @Prenom," +
@@ -83,7 +83,8 @@ namespace LaboBack.DAL.Repositories
             }
             command.AddParameter("@id", utilisateur.Id);
 
-            _connection.ExecuteNonQuery(command);
+            int rows = _connection.ExecuteNonQuery(command);
+            return rows > 0;
         }
     }
 }
