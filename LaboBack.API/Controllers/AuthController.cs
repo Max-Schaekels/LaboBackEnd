@@ -44,7 +44,7 @@ namespace LaboBack.API.Controllers
 
                 int id = _utilisateurService.Register(form.ApiToBll());
 
-                return Ok("Utilisateur enregitré avec succès !!!");
+                return NoContent();
             }
             catch (Exception ex)
             {
