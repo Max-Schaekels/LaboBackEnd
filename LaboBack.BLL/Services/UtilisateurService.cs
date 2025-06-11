@@ -106,7 +106,10 @@ namespace LaboBack.BLL.Services
             // Si un nouveau mot de passe est fourni, on le rehash
             if (!string.IsNullOrWhiteSpace(utilisateur.Mdp))
             {
-                utilisateur.Mdp = BCrypt.Net.BCrypt.HashPassword(utilisateur.Mdp);
+                if (!utilisateur.Mdp.StartsWith("$2a$"))
+                {
+                    utilisateur.Mdp = BCrypt.Net.BCrypt.HashPassword(utilisateur.Mdp);
+                }
             }
             else
             {

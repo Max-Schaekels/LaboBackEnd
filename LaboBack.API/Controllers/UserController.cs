@@ -44,10 +44,21 @@ namespace LaboBack.API.Controllers
             if (userIdClaim == null || int.Parse(userIdClaim) != id)
                 return Forbid("Vous ne pouvez modifier que votre propre profil.");
 
+            
+            var existingUser = _utilisateurService.GetById(id);
+            if (existingUser == null)
+                return NotFound("Utilisateur non trouvé.");
+
+            // Si MDP non fourni, on garde l'ancien
+            if (string.IsNullOrWhiteSpace(form.Mdp))
+            {
+                form.Mdp = existingUser.Mdp;
+            }
+
             var userToUpdate = form.ApiToBll();
             userToUpdate.Id = id;
 
-            // Si l’utilisateur n’est pas admin, on bloque la modif du rôle
+            // Si non-admin, on bloque la modif de rôle
             if (roleClaim != "admin")
             {
                 userToUpdate.Role = null;
