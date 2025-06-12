@@ -93,5 +93,12 @@ namespace LaboBack.DAL.Repositories
             command.AddParameter("@CommandeId", commandeId);
             return _connection.ExecuteReader(command, CommandeDetailMapper.ToDAL);
         }
+
+        //Récupération de toutes les commandes pour l'admin 
+        public IEnumerable<Commande> GetAll()
+        {
+            Command command = new Command("SELECT * FROM Commande");
+            return _connection.ExecuteReader(command, CommandeMapper.ToDAL);
+        }
     }
 }

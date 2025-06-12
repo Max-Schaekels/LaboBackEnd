@@ -113,5 +113,14 @@ namespace LaboBack.API.Controllers
 
             return Ok(result.Select(c => c.BllToApi()));
         }
+
+        //récupération des commandes par l'admin 
+        [HttpGet]
+        [Authorize(Roles = "admin")] 
+        public IActionResult GetAll()
+        {
+            var commandes = _commandeService.GetAll();
+            return Ok(commandes.Select(c => c.BllToApi()));
+        }
     }
 }

@@ -11,6 +11,7 @@ using LaboBack.DAL.Models;
 using Commande = LaboBack.BLL.Models.Commande;
 using Commande_Produit = LaboBack.BLL.Models.Commande_Produit;
 using CommandeDetail = LaboBack.BLL.Models.CommandeDetail;
+using LaboBack.DAL.Repositories;
 
 namespace LaboBack.BLL.Services
 {
@@ -60,6 +61,12 @@ namespace LaboBack.BLL.Services
         public IEnumerable<CommandeDetail> GetCommandeDetails(int commandeId)
         {
             return _repository.GetCommandeDetails(commandeId).Select(c => c.DalToBll());
+        }
+
+        //Récupération de toutes les commandes pour l'admin 
+        public IEnumerable<Commande> GetAll()
+        {
+            return _repository.GetAll().Select(c => c.DalToBll());
         }
     }
 }

@@ -15,5 +15,6 @@ namespace LaboBack.BLL.Interfaces
         IEnumerable<Commande_Produit> GetLignesCommande(int commandeId);
         void UpdateStatut(int commandeId, string nouveauStatut);
         IEnumerable<CommandeDetail> GetCommandeDetails(int commandeId);
+        IEnumerable<Commande> GetAll();
     }
 }
