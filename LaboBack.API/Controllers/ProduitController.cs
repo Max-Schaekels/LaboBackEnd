@@ -25,6 +25,7 @@ namespace LaboBack.API.Controllers
 
         // Récupération de l'ensemble des produits
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult GetAll()
         {
             var result = _produitService.GetAll().Select(p => p.BllToApi());
@@ -33,6 +34,7 @@ namespace LaboBack.API.Controllers
 
         // Récupération d'un produit par son id (détails)
         [HttpGet("{id}")]
+        [AllowAnonymous]
         public IActionResult GetByID(int id)
         {
             var result = _produitService.GetById(id);
@@ -47,7 +49,7 @@ namespace LaboBack.API.Controllers
 
         // Récupération des catégories
         [HttpGet("categories")]
-        [AllowAnonymous] // ou rien du tout si ton contrôleur est déjà public
+        [AllowAnonymous] 
         public IActionResult GetCategories()
         {
             try
@@ -63,6 +65,7 @@ namespace LaboBack.API.Controllers
 
         // Tri des produits par catégories
         [HttpGet("categorie/{categorie}")]
+        [AllowAnonymous]
         public IActionResult GetByCategorie(string categorie)
         {
             var result = _produitService.GetByCategorie(categorie).Select(p => p.BllToApi());
