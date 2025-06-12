@@ -15,5 +15,6 @@ namespace LaboBack.BLL.Interfaces
         void Update(Produit produit);
         void Delete(int id);
         IEnumerable<Produit> GetByCategorie(string categorie);
+        IEnumerable<string> GetCategories();
     }
 }

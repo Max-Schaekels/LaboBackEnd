@@ -3,6 +3,7 @@ using LaboBack.DAL.Mappers;
 using LaboBack.DAL.Models;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.Common;
 using System.Linq;
 using System.Text;
@@ -89,6 +90,12 @@ namespace LaboBack.DAL.Repositories
             command.AddParameter("@id", id);
 
             _connection.ExecuteNonQuery(command);
+        }
+
+        public IEnumerable<string> GetCategories()
+        {
+            Command command = new Command("SELECT DISTINCT Categorie FROM Produit ORDER BY Categorie");
+            return _connection.ExecuteReader(command, reader => reader.GetString("Categorie"));
         }
     }
 }

@@ -45,6 +45,22 @@ namespace LaboBack.API.Controllers
             return Ok(result.BllToApi());
         }
 
+        // Récupération des catégories
+        [HttpGet("categories")]
+        [AllowAnonymous] // ou rien du tout si ton contrôleur est déjà public
+        public IActionResult GetCategories()
+        {
+            try
+            {
+                var categories = _produitService.GetCategories();
+                return Ok(categories);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         // Tri des produits par catégories
         [HttpGet("categorie/{categorie}")]
         public IActionResult GetByCategorie(string categorie)
@@ -67,7 +83,9 @@ namespace LaboBack.API.Controllers
 
                 int id = _produitService.Create(form.ApiToBll());
 
-                return Ok("Produit créer avec succès !!!");
+                var produitCree = _produitService.GetById(id); 
+
+                return Ok(produitCree?.BllToApi()); // envoie du Product (avec Id) au front
             }
             catch (Exception ex)
             {
@@ -92,7 +110,8 @@ namespace LaboBack.API.Controllers
                 produit.Id = id;
 
                 _produitService.Update(produit);
-                return Ok();
+                var updated = _produitService.GetById(id); // <- on récupère le produit mis à jour
+                return Ok(updated?.BllToApi()); // <- on le renvoie
             }
             catch (Exception ex)
             {

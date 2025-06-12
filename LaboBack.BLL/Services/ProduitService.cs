@@ -10,6 +10,7 @@ using LaboBack.BLL.Models;
 using System.Reflection.Metadata;
 using LaboBack.DAL.Models;
 using Produit = LaboBack.BLL.Models.Produit;
+using LaboBack.DAL.Repositories;
 
 namespace LaboBack.BLL.Services
 {
@@ -71,6 +72,11 @@ namespace LaboBack.BLL.Services
                 throw new ArgumentException("Produit introuvable.");
             }
             _repository.Delete(id);
+        }
+
+        public IEnumerable<string> GetCategories()
+        {
+            return _repository.GetCategories();
         }
     }
 }
