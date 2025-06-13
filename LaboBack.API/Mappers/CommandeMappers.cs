@@ -26,6 +26,16 @@ namespace LaboBack.API.Mappers
                 StatutCommande = commande.StatutCommande
             };
         }
+        public static CommandeDTO BllToDto(this bll.Commande commande)
+        {
+            return new CommandeDTO
+            {
+                Id = commande.Id,
+                UtilisateurId = commande.UtilisateurId,
+                Date = commande.DateCommande,
+                Statut = commande.StatutCommande
+            };
+        }
 
         public static bll.Commande_Produit ToBll(this LigneCommandeFormDTO ligne)
         {

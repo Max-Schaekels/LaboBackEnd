@@ -49,7 +49,7 @@ namespace LaboBack.API.Controllers
                 return NotFound();
             }
 
-            return Ok(result.Select(c => c.BllToApi()));
+            return Ok(result.Select(c => c.BllToDto()));
         }
 
         // Récupération des lignes de la commande (quantité comandée)
