@@ -35,7 +35,7 @@ namespace LaboBack.API.Controllers
                 return NotFound();
             }
 
-            return Ok(result.BllToApi());
+            return Ok(result.BllToDto());
         }
 
         // Récupération de la commande avec l'id de l'utilisateur
