@@ -81,9 +81,10 @@ namespace LaboBack.API.Controllers
                 commande.UtilisateurId = int.Parse(User.FindFirst(ClaimTypes.Sid).Value);
                 var lignes = form.Lignes.ToBll().ToList();           
 
-                int id = _commandeService.Create(commande, lignes);  
+                int id = _commandeService.Create(commande, lignes);
 
-                return CreatedAtAction(nameof(GetByID), new { id = id }, "Commande créée !");
+                var commandeCreee = _commandeService.GetById(id);
+                return CreatedAtAction(nameof(GetByID), new { id = id }, commandeCreee.BllToApi());
             }
             catch (Exception ex)
             {
