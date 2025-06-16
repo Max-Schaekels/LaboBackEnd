@@ -121,7 +121,7 @@ namespace LaboBack.API.Controllers
         public IActionResult GetAll()
         {
             var commandes = _commandeService.GetAll();
-            return Ok(commandes.Select(c => c.BllToApi()));
+            return Ok(commandes.Select(c => c.BllToDto()));
         }
     }
 }
