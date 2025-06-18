@@ -8,6 +8,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using LaboBack.API.Tools;
 using AspNetCoreRateLimit;
+using LaboBack.API.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -98,9 +99,13 @@ builder.Services.AddCors(options =>
 });
 
 builder.Services.AddMemoryCache();
+#region Rate Limiting
 builder.Services.Configure<IpRateLimitOptions>(builder.Configuration.GetSection("IpRateLimiting"));
 builder.Services.AddInMemoryRateLimiting();
-builder.Services.AddSingleton<IRateLimitConfiguration, RateLimitConfiguration>();
+builder.Services.AddSingleton<IRateLimitConfiguration, RateLimitConfiguration>(); 
+#endregion
+
+builder.Services.AddHttpClient<GoogleCaptchaService>();
 
 var app = builder.Build();
 
